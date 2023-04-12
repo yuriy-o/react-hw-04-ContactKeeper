@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { ContactsFilter } from './ContactsFilter/ContactsFilter';
-import { nanoidUA } from './additions/nanoidUA';
+import { ContactForm } from "./ContactForm/ContactForm";
+import { ContactList } from "./ContactList/ContactList";
+import { ContactsFilter } from "./ContactsFilter/ContactsFilter";
+import { nanoidUA } from "./additions/nanoidUA";
 
-import { Container, H1, H2, Warning } from './App.styled';
+import { Container, H1, H2, Warning } from "./App.styled";
 
-const LOCAL_STORAGE = JSON.parse(window.localStorage.getItem('contacts'));
+const LOCAL_STORAGE = JSON.parse(window.localStorage.getItem("contacts"));
 
 export const App = ({ initialContacts }) => {
   const [contacts, setContacts] = useState(LOCAL_STORAGE ?? initialContacts);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
 
   //! (addContact)
@@ -34,15 +34,15 @@ export const App = ({ initialContacts }) => {
   //! Функція перевірки імені перед додаванням з урахуванням регистру
   const findDublicateContact = (contact, contactsList) => {
     return contactsList.find(
-      item => item.name.toLowerCase() === contact.name.toLowerCase()
+      (item) => item.name.toLowerCase() === contact.name.toLowerCase()
     );
   };
 
-  const removeContact = id => {
-    setContacts(contacts.filter(contact => contact.id !== id));
+  const removeContact = (id) => {
+    setContacts(contacts.filter((contact) => contact.id !== id));
   };
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     setFilter(e.target.value);
   };
 
@@ -53,7 +53,7 @@ export const App = ({ initialContacts }) => {
     }
 
     const normalizedFilter = filter.toLowerCase().trim();
-    return contacts.filter(contact => {
+    return contacts.filter((contact) => {
       return contact.name.toLowerCase().includes(normalizedFilter);
     });
   };
@@ -62,7 +62,7 @@ export const App = ({ initialContacts }) => {
 
   return (
     <Container>
-      <H1>Phonebook</H1>
+      <H1>ContactKeeper</H1>
       <ContactForm onSubmitForm={formHandleSubmit} />
 
       <H2>Contacts</H2>
